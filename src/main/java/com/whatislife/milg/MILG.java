@@ -8,7 +8,7 @@ import java.awt.*;
 public class MILG {
 
     public static final String NAME = "Minecraft Item Lyric Generator";
-    public static final String NAME_SHORT = "MILG";
+    public static final String NAME_SHORT = "com.whatislife.milg.MILG";
 
     public static final String VERSION = "0.1";
 
@@ -26,7 +26,7 @@ public class MILG {
         Helper.printInfo("RUN");
 
         FileReader fileReader = new FileReader();
-        Image img = fileReader.readSystemImage(fileReader.openFileChooser(FileFilters.IMAGE));
+        System.out.println(fileReader.readSystemJsonFile(fileReader.openFileChooser(FileFilters.JSON)).get("Test"));
     }
 
     public static void main(String[] args) {
