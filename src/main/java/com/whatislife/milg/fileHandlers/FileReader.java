@@ -1,12 +1,16 @@
 package com.whatislife.milg.fileHandlers;
 
 import com.whatislife.milg.MILG;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class FileReader {
@@ -37,10 +41,24 @@ public class FileReader {
         }
     }
 
+    public JSONObject readSystemJsonFile(File file) {
+        JSONParser parser = new JSONParser();
+        try (java.io.FileReader reader = new java.io.FileReader(file.getAbsolutePath())) {
+            JSONObject object = (JSONObject) parser.parse(reader);
+            return object;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void setFileFilter(FileFilters filter) {
         switch (filter) {
             case IMAGE -> fileChooser.setFileFilter(new FileNameExtensionFilter("Image (*.png, *.jpg)", "png", "jpg"));
-            case JSON -> fileChooser.setFileFilter(new FileNameExtensionFilter("Json Files", ".json"));
+            case JSON -> fileChooser.setFileFilter(new FileNameExtensionFilter("Json Files (*.json)", "json"));
         }
     }
 }
